@@ -1,0 +1,61 @@
+.accordion-container {
+  margin-top: 50px;
+}
+
+.flight-info {
+  display: flex;
+  align-items: center;
+}
+.flight_img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.flight-info__time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #212224;
+}
+
+.flight-info__carrier {
+  margin-top: -10px;
+  color: #a1a3a4;
+}
+
+.flight-duration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flight-duration__time {
+  display: flex;
+  align-items: center;
+  margin-top: -20px;
+}
+
+.flight-info__displayCode {
+  color: #a1a3a4;
+}
+
+.flight-info__stopCount {
+  font-size: 18px;
+  font-weight: 500;
+  color: #212224;
+}
+.flight-info__price {
+  text-align: center;
+}
+
+.flight-info__priceText {
+  font-size: 18px;
+  color: #1a834a;
+  font-weight: 600;
+}
+.flight-info__flightStatus {
+  color: #a1a3a4;
+  font-size: 14px;
+  margin-top: -10px;
+  font-weight: 500;
+}
+

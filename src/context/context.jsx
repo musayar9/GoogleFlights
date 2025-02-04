@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../utils/api";
 import { formattedDate } from "../utils/functions";
+import { useNavigate } from "react-router-dom";
 const FlightsContext = createContext();
 
 const FlightProvider = ({ children }) => {
@@ -21,6 +22,8 @@ const FlightProvider = ({ children }) => {
     children: 0,
     infantsSeat: 0,
   });
+
+  const navigation = useNavigate();
   const handleSearchFlight = async () => {
     if (!originSkyId || !destinationSkyId) {
       console.log("lütfen gerekli alanlaı doldurun");
@@ -49,6 +52,7 @@ const FlightProvider = ({ children }) => {
 
       console.log("res.data", res.data);
       localStorage.setItem("flights", JSON.stringify(res.data));
+      navigation("/result");
     } catch (error) {
       console.log("error", error);
     }
@@ -58,6 +62,7 @@ const FlightProvider = ({ children }) => {
     <FlightsContext.Provider
       value={{
         flights,
+        setFlights,
         originSkyId,
         setOriginSkyId,
         destinationSkyId,

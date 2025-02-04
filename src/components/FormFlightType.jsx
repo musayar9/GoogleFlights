@@ -43,7 +43,6 @@ const FormFlightType = () => {
         variant="outlined"
         endIcon={<ArrowDropDown />}
         sx={{
-          color: "black",
           backgroundColor: "white",
           display: "flex",
           alignItems: "center",

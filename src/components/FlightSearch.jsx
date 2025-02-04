@@ -84,7 +84,7 @@ const FlightSearch = () => {
       sx={{
         marginTop: 10,
         border: "1px solid #f0f0f0",
-        borderRadius: 4,
+        borderRadius: 2,
         boxShadow: "2px 4px 6px rgba(0, 0, 0, 0.2)",
         gap: 4,
         padding: 2,

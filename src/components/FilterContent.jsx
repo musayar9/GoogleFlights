@@ -18,7 +18,7 @@ const FilterContent = () => {
           objectFit: "cover",
         }}
         src={Image}
-        alt="Örnek Resim"
+        alt="ımage"
       />
       <Typography sx={{ textAlign: "center", marginTop: -10 }} variant="h2">
         Uçuşlar
