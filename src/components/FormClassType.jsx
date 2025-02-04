@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, Button } from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
+import { useGlobalContext } from "../context/context";
 
 const FormClassType = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("Ekonomi");
+  const { selectedOption, setSelectedOption } = useGlobalContext();
 
-  const options = ["Ekonomi", "Premium Ekonomi", "Business", "Birinci"];
-
+  const options = ["economy", "premium_economy", "business", "first"];
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,8 +26,11 @@ const FormClassType = () => {
         sx={{
           color: "black",
           backgroundColor: "white",
+          textTransform: "capitalize",
           border: "none",
           borderColor: "#ccc",
+          color: "#808385",
+          fontSize: 12,
           "&:hover": { backgroundColor: "#f5f5f5" },
         }}
       >
@@ -44,6 +47,7 @@ const FormClassType = () => {
             key={index}
             selected={option === selectedOption}
             onClick={() => handleClose(option)}
+            sx={{ textTransform: "capitalize" }}
           >
             {option}
           </MenuItem>

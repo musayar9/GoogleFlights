@@ -3,8 +3,10 @@ import { Menu, MenuItem, Button } from "@mui/material";
 import { ArrowDropDown, Face, SyncAltOutlined } from "@mui/icons-material";
 import EastIcon from "@mui/icons-material/East";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import { useGlobalContext } from "../context/context";
 const FormFlightType = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { oneWay, setOneWay } = useGlobalContext();
   const [selectedOption, setSelectedOption] = useState({
     name: "Gidiş dönüş",
     icon: <SyncAltOutlined />,
@@ -25,9 +27,15 @@ const FormFlightType = () => {
 
   const handleClose = (option) => {
     if (option) setSelectedOption(option);
+    console.log("ıo", option);
     setAnchorEl(null);
+    if (option.name === "Tek yön") {
+      setOneWay(true);
+    } else {
+      setOneWay(false);
+    }
   };
-
+  console.log("ponew", oneWay);
   return (
     <div>
       <Button
@@ -39,7 +47,8 @@ const FormFlightType = () => {
           backgroundColor: "white",
           display: "flex",
           alignItems: "center",
-
+          color: "#808385",
+          fontSize: 12,
           border: "none",
           borderColor: "#ccc",
           "&:hover": { backgroundColor: "#f5f5f5" },

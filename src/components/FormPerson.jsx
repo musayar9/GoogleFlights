@@ -11,16 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { ArrowDropDown, Person } from "@mui/icons-material";
+import { useGlobalContext } from "../context/context";
 
 const FormPerson = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [passengers, setPassengers] = useState({
-    adults: 1,
-    children: 0,
-    infantsSeat: 0,
-    infantsLap: 0,
-  });
-
+  const { passengers, setPassengers } = useGlobalContext();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,12 +38,15 @@ const FormPerson = () => {
         onClick={handleClick}
         endIcon={<ArrowDropDown />}
         variant="outlined"
-        sx={{ textTransform: "none", px: 2, border: "none", color: "black" }}
+        sx={{
+          textTransform: "none",
+          px: 2,
+          border: "none",
+          color: "#808385",
+          fontSize: 12,
+        }}
       >
-        {passengers.adults +
-          passengers.children +
-          passengers.infantsSeat +
-          passengers.infantsLap}
+        {passengers.adults + passengers.children + passengers.infantsSeat}
       </Button>
 
       <Menu
@@ -116,25 +114,6 @@ const FormPerson = () => {
                 <Button onClick={() => handleChange("infantsSeat", 1)}>
                   +
                 </Button>
-              </ButtonGroup>
-            </Grid>
-
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              sx={{ my: 1 }}
-            >
-              <Typography>Bebek (Kucakta)</Typography>
-              <ButtonGroup size="small">
-                <Button
-                  onClick={() => handleChange("infantsLap", -1)}
-                  disabled={passengers.infantsLap <= 0}
-                >
-                  -
-                </Button>
-                <Button>{passengers.infantsLap}</Button>
-                <Button onClick={() => handleChange("infantsLap", 1)}>+</Button>
               </ButtonGroup>
             </Grid>
 

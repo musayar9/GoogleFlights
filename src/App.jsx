@@ -1,8 +1,9 @@
 import React from "react";
-import { useGlobalContext } from "./context/context";
-import FlightSearch from "./components/FlightSearch";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import FilterContent from "./components/FilterContent";
+import Result from "./components/Result";
+import Home from "./components/Home";
 import { Box, Typography } from "@mui/material";
-import Image from "./assets/flights.svg";
 const App = () => {
   return (
     <Box
@@ -12,19 +13,13 @@ const App = () => {
         marginX: "auto",
       }}
     >
-      <Box
-        component="img"
-        sx={{
-          width: 1200,
-          height: 300,
-          borderRadius: "10px",
-          objectFit: "cover",
-        }}
-        src={Image}
-        alt="Örnek Resim"
-      />
-      <Typography sx={{textAlign:"center", marginTop:-10}} variant="h2">Uçuşlar</Typography>
-      <FlightSearch />
+      <FilterContent />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/result" element={<Result />} />
+        </Routes>
+      </BrowserRouter>
     </Box>
   );
 };

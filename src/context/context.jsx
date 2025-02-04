@@ -1,44 +1,58 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { api } from "../utils/api";
+import { formattedDate } from "../utils/functions";
 const FlightsContext = createContext();
 
 const FlightProvider = ({ children }) => {
-  const [originSkyId, setOriginSkyId] = useState(null); // Kalkış noktası
-  const [detinationSkyId, setDestinationSkyId] = useState(); // Varış noktası
-  const [departureDate, setDepartureDate] = useState("2024-02-15"); // Gidiş tarihi
-  const [returnDate, setReturnDate] = useState("2024-02-20"); // Dönüş tarihi
+  const [originSkyId, setOriginSkyId] = useState(null);
+  const [destinationSkyId, setDestinationSkyId] = useState();
+  const [originAirtport, setOriginAirPort] = useState({});
+  const [destinationAirport, setDestinationAirport] = useState({});
+  const [departureDate, setDepartureDate] = useState(null);
+  const [returnDate, setReturnDate] = useState(null);
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [oneWay, setOneWay] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("economy");
 
-  //   useEffect(() => {
-  //     const searchFlights = async () => {
-  //       setLoading(true);
-  //       try {
-  //         const response = await axios.get(
-  //           "https://sky-scanner3.p.rapidapi.com/api/v1/flights/searchFlights",
-  //           {
-  //             params: {
-  //               from,
-  //               to,
-  //               date: departureDate, // Gidiş tarihi
-  //               returnDate, // Dönüş tarihi
-  //             },
-  //             headers: {
-  //               "X-RapidAPI-Key":
-  //               
-  //               "X-RapidAPI-Host": "sky-scanner3.p.rapidapi.com",
-  //             },
-  //           }
-  //         );
-  //         console.log(response.data, "ssfasd");
-  //         setFlights(response.data); // API'den gelen uçuşları al ve state'e ata
-  //       } catch (error) {
-  //         console.error("API Hatası:", error); // Hata durumunu konsola yazdır
-  //       }
-  //       setLoading(false); // Yükleniyor durumunu sonlandır
-  //     };
-  //     searchFlights();
-  //   }, []);
+  const [passengers, setPassengers] = useState({
+    adults: 1,
+    children: 0,
+    infantsSeat: 0,
+  });
+  const handleSearchFlight = async () => {
+    if (!originSkyId || !destinationSkyId) {
+      console.log("lütfen gerekli alanlaı doldurun");
+      return;
+    }
+    try {
+      setLoading(true);
+      const res = await api.get(`/v2/flights/searchFlights`, {
+        params: {
+          originSkyId: originSkyId,
+          destinationSkyId: destinationSkyId,
+          originEntityId: originAirtport.entityId,
+          destinationEntityId: destinationAirport.entityId,
+          cabinClass: selectedOption,
+          date: formattedDate(departureDate),
+          returnDate: formattedDate(returnDate),
+          adults: passengers.adults,
+          childrens: passengers.children,
+          infants: passengers.infantsSeat,
+          sortBy: "best",
+          currency: "USD",
+          market: "en-US",
+          countryCode: "US",
+        },
+      });
+
+      console.log("res.data", res.data);
+      localStorage.setItem("flights", JSON.stringify(res.data));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   return (
     <FlightsContext.Provider
@@ -46,12 +60,28 @@ const FlightProvider = ({ children }) => {
         flights,
         originSkyId,
         setOriginSkyId,
-        detinationSkyId,
+        destinationSkyId,
         setDestinationSkyId,
         setDepartureDate,
         setReturnDate,
         departureDate,
         returnDate,
+        originAirtport,
+        setOriginAirPort,
+        destinationAirport,
+        setDestinationAirport,
+        departureDate,
+        setDepartureDate,
+        returnDate,
+        setReturnDate,
+        selectedOption,
+        setSelectedOption,
+        passengers,
+        setPassengers,
+        oneWay,
+        setOneWay,
+        loading,
+        handleSearchFlight,
       }}
     >
       {children}
