@@ -16,7 +16,7 @@ const FlightProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [oneWay, setOneWay] = useState(false);
   const [selectedOption, setSelectedOption] = useState("economy");
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [passengers, setPassengers] = useState({
     adults: 1,
     children: 0,
@@ -25,8 +25,16 @@ const FlightProvider = ({ children }) => {
 
   const navigation = useNavigate();
   const handleSearchFlight = async () => {
-    if (!originSkyId || !destinationSkyId) {
-      console.log("lütfen gerekli alanlaı doldurun");
+    if (!originSkyId) {
+      setErrorMessage("Please enter where you will be traveling from.");
+      return;
+    }
+    if (!destinationSkyId) {
+      setErrorMessage("Please enter where you will be traveling to");
+      return;
+    }
+    if (!departureDate) {
+      setErrorMessage("Please enter the departure date.");
       return;
     }
     try {
@@ -60,6 +68,13 @@ const FlightProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
+  }, [errorMessage]);
   return (
     <FlightsContext.Provider
       value={{
@@ -89,6 +104,7 @@ const FlightProvider = ({ children }) => {
         setOneWay,
         loading,
         handleSearchFlight,
+        errorMessage,
       }}
     >
       {children}

@@ -15,12 +15,18 @@ import TapAndPlayIcon from "@mui/icons-material/TapAndPlay";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import PublicIcon from "@mui/icons-material/Public";
+import Loading from "./Loading";
+import NotFlights from "./NotFlights";
 const Result = () => {
-  const { flights, setFlights, selectedOptions, loading } = useGlobalContext();
+  const { flights, selectedOptions, loading } = useGlobalContext();
 
-  console.log("fli", flights?.data);
+  console.log(flights, "flights");
   if (loading) {
-    return <div>Loading</div>;
+    return <Loading />;
+  }
+
+  if (flights?.data?.itineraries?.length !== 0 || flights.status === "false") {
+    return <NotFlights />;
   }
 
   return (

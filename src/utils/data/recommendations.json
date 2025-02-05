@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "City": "Dubai",
+    "city": "Dubai",
     "price": "143.89",
     "departureDate": "2025-05-05T12:00:00",
     "arrivalDate": "2025-05-14T16:25:00",
@@ -12,7 +12,7 @@
 
   {
     "id": 2,
-    "City": "Paris",
+    "city": "Paris",
     "price": "127,05",
     "departureDate": "2025-05-26T12:00:00",
     "arrivalDate": "2025-06-03T15:50:00",
@@ -22,7 +22,7 @@
   },
   {
     "id": 3,
-    "City": "Roma",
+    "city": "Rome",
     "price": "130,19",
     "departureDate": "2025-04-17T12:00:00",
     "arrivalDate": "2025-04-23T14:45:00",
@@ -32,12 +32,12 @@
   },
   {
     "id": 4,
-    "City": "Londra",
+    "city": "London",
     "price": "72,86",
     "departureDate": "2025-03-13T12:00:00",
     "arrivalDate": "2025-03-22T16:20:00",
     "durationInMinutes": 260,
     "flightType": "Non-stop",
-    "iamge":"https://dijitalgezgin.com/wp-content/uploads/2021/10/londra-gezi-rehberi-1.jpg"
+    "image":"https://dijitalgezgin.com/wp-content/uploads/2021/10/londra-gezi-rehberi-1.jpg"
   }
 ]

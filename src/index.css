@@ -122,3 +122,10 @@
   width: "100%";
   border-radius: "12px";
 }
+
+.loading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}

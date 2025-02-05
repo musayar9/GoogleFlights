@@ -14,7 +14,7 @@ import FormFlightType from "./FormFlightType";
 import FromClassType from "./FormClassType";
 import FormPerson from "./FormPerson";
 import { api } from "../utils/api";
-import { Button, Typography } from "@mui/material";
+import { Alert, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 const FlightSearch = () => {
@@ -30,11 +30,13 @@ const FlightSearch = () => {
     setDepartureDate,
     returnDate,
     setReturnDate,
-    originAirtport,
+    errorMessage,
     handleSearchFlight,
   } = useGlobalContext();
   const [airports, setAirports] = useState([]);
   const [isloading, setIsLoading] = useState(false);
+
+  const today = dayjs();
   const handleFocus = async () => {
     try {
       setIsLoading(true);
@@ -82,7 +84,7 @@ const FlightSearch = () => {
       console.log(error, "error");
     }
   };
-  console.log("orgi", originAirtport);
+
   return (
     <Box
       sx={{
@@ -107,85 +109,99 @@ const FlightSearch = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "row",
+          flexDirection: { xs: "column", md: "row" }, // Küçük ekranda column, büyükte row
           gap: 2,
+          width: "100%",
         }}
       >
-        <Autocomplete
-          disablePortal
-          options={airports.filter(
-            (airport) =>
-              airport.id !== null && airport.skyId !== destinationSkyId
-          )}
-          getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          getOptionKey={(option, index) => `${option.id}-${index}`}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"From Where"}
-             
-            />
-          )}
-          noOptionsText={isloading ? "Loading..." : "No options"}
-          onChange={(event, newValue) => {
-            if (newValue) {
-              handleOrigin(newValue.skyId);
-            }
+        <Box
+          sx={{
+            display: "flex",
+          width:"100%",
+            gap: 2,
           }}
-          onFocus={handleFocus}
-        />
+        >
+          <Autocomplete
+            disablePortal
+            options={airports.filter(
+              (airport) =>
+                airport.id !== null && airport.skyId !== destinationSkyId
+            )}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            getOptionKey={(option, index) => `${option.id}-${index}`}
+            sx={{ width: { xs: "100%", md: 300 } }} // Küçük ekranda tam genişlik, büyükte 300px
+            renderInput={(params) => (
+              <TextField {...params} label={"From Where"} />
+            )}
+            noOptionsText={isloading ? "Loading..." : "No options"}
+            onChange={(event, newValue) => {
+              if (newValue) {
+                handleOrigin(newValue.skyId);
+              }
+            }}
+            onFocus={handleFocus}
+          />
 
-        <Autocomplete
-          disablePortal
-          options={airports.filter(
-            (airport) => airport.id !== null && airport.skyId !== originSkyId
-          )}
-          getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          sx={{ width: 300 }}
-          getOptionKey={(option, index) => `${option.id}-${index}`}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={"To Where"}
-             
-            />
-          )}
-          noOptionsText={isloading ? "Loading..." : "No options"}
-          onChange={(event, newValue) => {
-            if (newValue) {
-              handleDestination(newValue.skyId);
-            }
-          }}
-          onFocus={handleFocus}
-        />
+          <Autocomplete
+            disablePortal
+            options={airports.filter(
+              (airport) => airport.id !== null && airport.skyId !== originSkyId
+            )}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            getOptionKey={(option, index) => `${option.id}-${index}`}
+            sx={{ width: { xs: "100%", md: 300 } }}
+            renderInput={(params) => (
+              <TextField {...params} label={"To Where"} />
+            )}
+            noOptionsText={isloading ? "Loading..." : "No options"}
+            onChange={(event, newValue) => {
+              if (newValue) {
+                handleDestination(newValue.skyId);
+              }
+            }}
+            onFocus={handleFocus}
+          />
+        </Box>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label={"Departure"}
-            value={departureDate}
-            onChange={(date) => setDepartureDate(date)}
-            sx={{ width: oneWay ? "50%" : "25%" }}
-          />
-          {!oneWay && (
+          <Box
+            sx={{
+              display: "flex",
+             
+              gap: 2,
+              width: "100%",
+            }}
+          >
             <DatePicker
-              label={"Return"}
-              value={returnDate}
-              onChange={(date) => setReturnDate(date)}
-              sx={{ width: oneWay ? "100%" : "25%" }}
+              monthsPerRow={4}
+              disablePast
+              label={"Departure"}
+              value={departureDate}
+              onChange={(date) => setDepartureDate(date)}
+              sx={{ width: { xs: "100%", md: oneWay ? "50%" : "75%" } }}
             />
-          )}
+            {!oneWay && (
+              <DatePicker
+                disablePast
+                label={"Return"}
+                value={returnDate}
+                onChange={(date) => setReturnDate(date)}
+                sx={{ width: { xs: "100%", md: oneWay ? "50%" : "75%" } }}
+              />
+            )}
+          </Box>
         </LocalizationProvider>
       </Box>
+
       <Button
         sx={{
           display: "flex",
           alignItems: "center",
           position: "absolute",
           bottom: -20,
-          left: "50%",
+          left: "45%",
           backgroundColor: "#1a73e8",
           paddingLeft: 2,
           paddingRight: 2,
@@ -199,6 +215,11 @@ const FlightSearch = () => {
           {originSkyId && destinationSkyId ? "Search" : "Discover"}
         </Typography>
       </Button>
+      {errorMessage && (
+        <Alert sx={{ mt: 2 }} severity="error">
+          {errorMessage}
+        </Alert>
+      )}
     </Box>
   );
 };

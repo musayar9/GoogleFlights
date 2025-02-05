@@ -14,7 +14,7 @@ const FormFlightType = () => {
 
   const options = [
     { name: "Round-trip", icon: <SyncAltOutlined sx={{ fontSize: 16 }} /> },
-    { name: "Onew Way", icon: <EastIcon sx={{ fontSize: 16 }} /> },
+    { name: "One Way", icon: <EastIcon sx={{ fontSize: 16 }} /> },
     {
       name: "Multi City",
       icon: <LocationCityIcon sx={{ fontSize: 16 }} />,

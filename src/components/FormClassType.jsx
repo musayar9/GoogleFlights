@@ -24,7 +24,6 @@ const FormClassType = () => {
         variant="outlined"
         endIcon={<ArrowDropDown />}
         sx={{
-          color: "black",
           backgroundColor: "white",
           textTransform: "capitalize",
           border: "none",

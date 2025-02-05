@@ -1,6 +1,9 @@
 import React from "react";
 import MapComponent from "./MapComponent";
 import { Box, Button, Container, Typography } from "@mui/material";
+import Recommendations from "./Recommendations";
+import { useGlobalContext } from "../context/context";
+import Loading from "./Loading";
 
 const city = [
   {
@@ -13,6 +16,10 @@ const city = [
 ];
 
 const Home = () => {
+  const { loading } = useGlobalContext();
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <Box
       sx={{
@@ -26,7 +33,15 @@ const Home = () => {
       <Typography variant="h5">
         Find the lowest-priced flights departing from Istanbul
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, paddingTop:1, paddingBottom:1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          paddingTop: 1,
+          paddingBottom: 1,
+        }}
+      >
         {city.map((item) => (
           <Button
             sx={{
@@ -46,6 +61,7 @@ const Home = () => {
         ))}
       </Box>
       <MapComponent />
+      <Recommendations />
     </Box>
   );
 };

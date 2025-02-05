@@ -1,25 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import FilterContent from "./components/FilterContent";
-import Result from "./components/Result";
+import Layout from "./Layout";
 import Home from "./components/Home";
-import { Box, Container, Typography } from "@mui/material";
+import Result from "./components/Result";
+import PageNotFound from "./components/PageNotFound";
+
 const App = () => {
   return (
-    <Container
-      // sx={{
-      //   maxWidth: "90vw",
-      //   width: "1200px",
-      //   marginX: "auto",
-      // }}
-    >
-      <FilterContent />
-
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/result" element={<Result />} />
-      </Routes>
-    </Container>
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 };
 
