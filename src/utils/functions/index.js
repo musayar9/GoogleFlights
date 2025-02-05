@@ -12,7 +12,7 @@ export const formatDuration = (durationInMinutes) => {
     return `${minutes}min`;
   }
 
-  return `${hours}h ${minutes}min`;
+  return `${hours}h : ${minutes}min`;
 };
 
 export const formatHour = (dateTime) => {

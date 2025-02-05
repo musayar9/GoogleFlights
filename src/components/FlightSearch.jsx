@@ -36,7 +36,6 @@ const FlightSearch = () => {
   const [airports, setAirports] = useState([]);
   const [isloading, setIsLoading] = useState(false);
 
-  const today = dayjs();
   const handleFocus = async () => {
     try {
       setIsLoading(true);

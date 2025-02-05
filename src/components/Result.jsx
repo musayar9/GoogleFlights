@@ -25,7 +25,7 @@ const Result = () => {
     return <Loading />;
   }
 
-  if (flights?.data?.itineraries?.length !== 0 || flights.status === "false") {
+  if (flights?.data?.itineraries?.length === 0 || flights.status === "false") {
     return <NotFlights />;
   }
 
