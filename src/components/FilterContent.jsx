@@ -6,9 +6,7 @@ import FlightSearch from "./FlightSearch";
 
 const FilterContent = () => {
   return (
-    <Box
-     
-    >
+    <Box>
       <Box
         component="img"
         sx={{
@@ -21,7 +19,7 @@ const FilterContent = () => {
         alt="ımage"
       />
       <Typography sx={{ textAlign: "center", marginTop: -10 }} variant="h2">
-        Uçuşlar
+        Flights
       </Typography>
       <FlightSearch />
     </Box>

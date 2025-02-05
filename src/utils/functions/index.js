@@ -9,13 +9,22 @@ export const formatDuration = (durationInMinutes) => {
   const minutes = durationInMinutes % 60;
 
   if (hours === 0) {
-    return `${minutes}dk`;
+    return `${minutes}min`;
   }
 
-  return `${hours}sa ${minutes}dk`;
+  return `${hours}h ${minutes}min`;
 };
 
 export const formatHour = (dateTime) => {
   const time = dateTime.split("T")[1].slice(0, 5);
   return time;
+};
+
+export const formatLongDate = (dateString) => {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "short" });
+  const weekday = date.toLocaleString("en-US", { weekday: "long" });
+
+  return `${day} ${month} ${weekday}`;
 };

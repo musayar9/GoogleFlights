@@ -42,11 +42,12 @@ const FormFlightType = () => {
         onClick={handleClick}
         variant="outlined"
         endIcon={<ArrowDropDown />}
+        color="#808385"
+        
         sx={{
           backgroundColor: "white",
           display: "flex",
           alignItems: "center",
-          color: "#808385",
           fontSize: 12,
           border: "none",
           borderColor: "#ccc",
