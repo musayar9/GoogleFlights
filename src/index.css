@@ -27,12 +27,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .flight-duration__time {
   display: flex;
   align-items: center;
-  margin-top: -20px;
 }
 .flight-info__emissions {
   color: #212224;
@@ -43,7 +43,6 @@
   padding: 5px;
   border-radius: 4px;
   color: #0d652d;
-  margin-top: -10px;
 }
 
 .flight-info__displayCode {
@@ -63,12 +62,6 @@
   font-size: 18px;
   color: #1a834a;
   font-weight: 600;
-}
-.flight-info__flightStatus {
-  color: #a1a3a4;
-  font-size: 14px;
-  margin-top: -10px;
-  font-weight: 500;
 }
 
 .flight-card {
@@ -107,9 +100,9 @@
 }
 
 .flight-duration {
-  color: #888;
-  font-size: 1.2rem;
   align-self: self-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .divider {
@@ -119,12 +112,13 @@
   background: #ccc;
 }
 
-.flight-details {
-  color: #777;
-  font-size: 0.9rem;
-  text-transform: capitalize;
+.flight-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-
-.flight-right-text {
-  color: #a1a3a4;
+.mapContainer {
+  height: 300;
+  width: "100%";
+  border-radius: "12px";
 }

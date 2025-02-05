@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -33,9 +34,10 @@ const FlightSearch = () => {
     handleSearchFlight,
   } = useGlobalContext();
   const [airports, setAirports] = useState([]);
-
+  const [isloading, setIsLoading] = useState(false);
   const handleFocus = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         "https://sky-scanner3.p.rapidapi.com/flights/airports",
         {
@@ -48,8 +50,10 @@ const FlightSearch = () => {
       );
       const data = await response.data;
       setAirports(data.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("API Hatası:", error);
+      setIsLoading(false);
     }
   };
 
@@ -117,7 +121,14 @@ const FlightSearch = () => {
           isOptionEqualToValue={(option, value) => option.id === value.id}
           getOptionKey={(option, index) => `${option.id}-${index}`}
           sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label={"Nereden"} />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={"From Where"}
+             
+            />
+          )}
+          noOptionsText={isloading ? "Loading..." : "No options"}
           onChange={(event, newValue) => {
             if (newValue) {
               handleOrigin(newValue.skyId);
@@ -135,7 +146,14 @@ const FlightSearch = () => {
           isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}
           getOptionKey={(option, index) => `${option.id}-${index}`}
-          renderInput={(params) => <TextField {...params} label={"Nereye"} />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={"To Where"}
+             
+            />
+          )}
+          noOptionsText={isloading ? "Loading..." : "No options"}
           onChange={(event, newValue) => {
             if (newValue) {
               handleDestination(newValue.skyId);
@@ -146,14 +164,14 @@ const FlightSearch = () => {
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label={"Gidiş"}
+            label={"Departure"}
             value={departureDate}
             onChange={(date) => setDepartureDate(date)}
             sx={{ width: oneWay ? "50%" : "25%" }}
           />
           {!oneWay && (
             <DatePicker
-              label={"Dönüş"}
+              label={"Return"}
               value={returnDate}
               onChange={(date) => setReturnDate(date)}
               sx={{ width: oneWay ? "100%" : "25%" }}
@@ -178,7 +196,7 @@ const FlightSearch = () => {
       >
         <Search />
         <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
-          {originSkyId && destinationSkyId ? "Ara" : "Keşfet"}
+          {originSkyId && destinationSkyId ? "Search" : "Discover"}
         </Typography>
       </Button>
     </Box>

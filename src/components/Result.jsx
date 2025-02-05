@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { useGlobalContext } from "../context/context";
 import { useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { formatDuration, formatHour, formatLongDate } from "../utils/functions";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import AirlineSeatLegroomExtraIcon from "@mui/icons-material/AirlineSeatLegroomExtra";
@@ -16,16 +16,12 @@ import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import PublicIcon from "@mui/icons-material/Public";
 const Result = () => {
-  const { flights, setFlights, selectedOptions } = useGlobalContext();
-
-  useEffect(() => {
-    const value = JSON.parse(localStorage.getItem("flights"));
-    if (value) {
-      setFlights(value);
-    }
-  }, []);
+  const { flights, setFlights, selectedOptions, loading } = useGlobalContext();
 
   console.log("fli", flights?.data);
+  if (loading) {
+    return <div>Loading</div>;
+  }
 
   return (
     <div className="accordion-container">
@@ -56,47 +52,66 @@ const Result = () => {
               )}
               <div>
                 <div className="flight-info">
-                  <p className="flight-info__time">
+                  <Typography fontWeight={600} fontSize={18}>
                     {formatHour(item.legs?.[0].departure)}
-                  </p>
+                  </Typography>
                   <HorizontalRuleIcon />
-                  <p className="flight-info__time">
+                  <Typography fontWeight={600} fontSize={18}>
                     {formatHour(item.legs?.[0].arrival)}
-                  </p>
+                  </Typography>
                 </div>
-                <p className="flight-info__carrier">
+                <Typography fontSize={14} color={"#a1a3a4"}>
                   {item.legs[0].carriers.marketing[0].name}
-                </p>
+                </Typography>
               </div>
               <div className="flight-duration">
-                <p className="flight-info__time">
+                <Typography
+                  fontWeight={600}
+                  fontSize={18}
+                  color={"#212224"}
+                  marginTop={0}
+                >
                   {formatDuration(item.legs?.[0].durationInMinutes)}
-                </p>
+                </Typography>
                 <div className="flight-duration__time">
-                  <p className="flight-info__displayCode">
+                  <Typography fontSize={14} color={"#a1a3a4"}>
                     {item.legs?.[0]?.origin.displayCode}
-                  </p>
+                  </Typography>
                   <HorizontalRuleIcon sx={{ color: "#a1a3a4" }} />
-                  <p className="flight-info__displayCode">
+                  <Typography fontSize={14} color={"#a1a3a4"}>
                     {item.legs?.[0]?.destination.displayCode}
-                  </p>
+                  </Typography>
                 </div>
               </div>
 
               <div>
-                <p className="flight-info__stopCount">
-                  {item.legs?.[0].stopCount === 0 ? "Aktarmasız" : "Aktarmalı"}
-                </p>
+                <Typography fontSize={18} fontWeight={500} color={"#212224"}>
+                  {item.legs?.[0].stopCount === 0 ? "Non-stop" : "Connecting"}
+                </Typography>
               </div>
               <div className="flight-emissions">
-                <p className="flight-info__emissions">47 kg CO2e</p>
-                <p className="flight-info__emission-amount">-30% emissions</p>
+                <Typography fontSize={18} color={"#212224"}>
+                  47 kg CO2e
+                </Typography>
+                <Typography
+                  fontSize={14}
+                  className="flight-info__emission-amount"
+                >
+                  -30% emissions
+                </Typography>
               </div>
               <div className="flight-info__price">
-                <p className="flight-info__priceText">{item.price.formatted}</p>
-                <p className="flight-info__flightStatus">
-                  {item.legs.length > 1 ? "gidiş-dönüş" : "tek yön"}
-                </p>
+                <Typography fontSize={18} color="#1a834a" fontWeight={600}>
+                  {item.price.formatted}
+                </Typography>
+                <Typography
+                  fontSize={14}
+                  fontWeight={500}
+                  color={"#a1a3a4"}
+                  className="flight-info__flightStatus"
+                >
+                  {item.legs.length > 1 ? "Round-trip" : "One Way"}
+                </Typography>
               </div>
             </Box>
           </AccordionSummary>
@@ -108,63 +123,76 @@ const Result = () => {
                     sx={{ fontSize: "48px", color: "#1a73e8" }}
                   />
                   <div>
-                    <p>{formatLongDate(item.legs?.[0].departure)}</p>
+                    <Typography fontWeight={600}>
+                      {formatLongDate(item.legs?.[0].departure)}
+                    </Typography>
                     <div className="flight-row">
-                      <span className="flight-time">
+                      <Typography fontSize={18} fontWeight={500}>
                         {formatHour(item.legs?.[0].departure)}
-                      </span>
-                      <span className="flight-location">
+                      </Typography>
+                      <Typography fontSize={16} color="#202124">
                         {item.legs?.[0].origin.name} (
                         {item.legs?.[0].origin.displayCode})
-                      </span>
+                      </Typography>
                     </div>
                   </div>
                 </div>
 
-                <p className="flight-duration">
-                  Travel Time:
+                <Typography
+                  fontSize={15}
+                  color="#777"
+                  className="flight-duration"
+                >
+                  Travel time:
                   {formatDuration(item.legs?.[0].durationInMinutes)}
-                </p>
+                </Typography>
 
                 <div className="flight-left-content">
                   <FlightLandIcon sx={{ fontSize: "48px", color: "#1a73e8" }} />
                   <div>
-                    <p>{formatLongDate(item.legs?.[0].arrival)}</p>
+                    <Typography fontWeight={600}>
+                      {formatLongDate(item.legs?.[0].arrival)}
+                    </Typography>
                     <div className="flight-row">
-                      <span className="flight-time">
+                      <Typography fontSize={18} fontWeight={500}>
                         {formatHour(item.legs?.[0].arrival)}
-                      </span>
-                      <span className="flight-location">
+                      </Typography>
+                      <Typography fontSize={16} color="#202124">
                         {item.legs?.[0].destination.name} (
                         {item.legs?.[0].destination.displayCode})
-                      </span>
+                      </Typography>
                     </div>
                   </div>
                 </div>
 
-                <p className="flight-details">
+                <Typography
+                  fontSize={14}
+                  color="#777"
+                  textTransform={"capitalize"}
+                  marginTop={2}
+                >
                   {item.legs[0].carriers.marketing[0].name} •{" "}
                   {selectedOptions || "economy"}
-                </p>
+                </Typography>
               </div>
               <div className="flight-right">
                 <div className="flight-row">
                   <AirlineSeatLegroomExtraIcon sx={{ color: "#606469" }} />
-                  <p className="flight-right-text">
-                    Ortalama bacak mesafesinin altında (71 cm)
-                  </p>
+                  <Typography color={"#777"} fontSize={14}>
+                    Below average legroom (71 cm)
+                  </Typography>
                 </div>
                 <div className="flight-row">
                   <TapAndPlayIcon sx={{ color: "#606469" }} />
-                  <p className="flight-right-text">
-                    Cihazınıza medya içeriği akışı gerçekleştirin
-                  </p>
+                  <Typography color={"#777"} fontSize={14}>
+                    Stream media content to your device
+                  </Typography>
                 </div>
                 <div className="flight-row">
                   <PublicIcon sx={{ color: "#606469" }} />
-                  <p className="flight-right-text">
-                    Tahmini Emisyon: 47 kg CO2e
-                  </p>
+                  <Typography color={"#777"} fontSize={14}>
+                    Estimated Emission: 47 kg CO2e
+                  </Typography>
                 </div>
               </div>
             </div>

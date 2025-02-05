@@ -8,15 +8,15 @@ const FormFlightType = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { oneWay, setOneWay } = useGlobalContext();
   const [selectedOption, setSelectedOption] = useState({
-    name: "Gidiş dönüş",
+    name: "Round-trip",
     icon: <SyncAltOutlined />,
   });
 
   const options = [
-    { name: "Gidiş dönüş", icon: <SyncAltOutlined sx={{ fontSize: 16 }} /> },
-    { name: "Tek yön", icon: <EastIcon sx={{ fontSize: 16 }} /> },
+    { name: "Round-trip", icon: <SyncAltOutlined sx={{ fontSize: 16 }} /> },
+    { name: "Onew Way", icon: <EastIcon sx={{ fontSize: 16 }} /> },
     {
-      name: "Birden fazla şehir",
+      name: "Multi City",
       icon: <LocationCityIcon sx={{ fontSize: 16 }} />,
     },
   ];
@@ -29,7 +29,7 @@ const FormFlightType = () => {
     if (option) setSelectedOption(option);
     console.log("ıo", option);
     setAnchorEl(null);
-    if (option.name === "Tek yön") {
+    if (option.name === "One Way") {
       setOneWay(true);
     } else {
       setOneWay(false);

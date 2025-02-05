@@ -64,7 +64,7 @@ const FormPerson = () => {
               justifyContent="space-between"
               sx={{ my: 1 }}
             >
-              <Typography>Yetişkin</Typography>
+              <Typography>Adults</Typography>
               <ButtonGroup size="small">
                 <Button
                   onClick={() => handleChange("adults", -1)}
@@ -83,7 +83,7 @@ const FormPerson = () => {
               justifyContent="space-between"
               sx={{ my: 1 }}
             >
-              <Typography>Çocuk (2-11 Yaş)</Typography>
+              <Typography>Children (2-11 Age)</Typography>
               <ButtonGroup size="small">
                 <Button
                   onClick={() => handleChange("children", -1)}
@@ -102,7 +102,7 @@ const FormPerson = () => {
               justifyContent="space-between"
               sx={{ my: 1 }}
             >
-              <Typography>Bebek (Koltukta)</Typography>
+              <Typography>Baby (In Seat)</Typography>
               <ButtonGroup size="small">
                 <Button
                   onClick={() => handleChange("infantsSeat", -1)}

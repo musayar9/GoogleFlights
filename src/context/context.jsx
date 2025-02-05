@@ -51,10 +51,12 @@ const FlightProvider = ({ children }) => {
       });
 
       console.log("res.data", res.data);
-      localStorage.setItem("flights", JSON.stringify(res.data));
+      setFlights(res.data);
       navigation("/result");
+      setLoading(false);
     } catch (error) {
       console.log("error", error);
+      setLoading(false);
     }
   };
 
