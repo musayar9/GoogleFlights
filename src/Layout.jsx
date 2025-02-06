@@ -1,7 +1,7 @@
 import React from "react";
-import { Outlet } from "react-router-dom"; // Used to render child routes in a nested route structure
-import { Box, Container, Typography } from "@mui/material"; // Material UI components for layout and styling
-import FilterContent from "./components/FilterContent"; // Import FilterContent component for filtering options
+import { Outlet } from "react-router-dom"; 
+import { Box, Container, Typography } from "@mui/material";
+import FilterContent from "./components/FilterContent"; 
 
 // Main layout component for the application
 const Layout = () => {
