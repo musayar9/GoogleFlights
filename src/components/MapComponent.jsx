@@ -27,8 +27,8 @@ const MapComponent = () => {
           color: "#007bff",
           position: "absolute",
           zIndex: 1000,
-          top: 120,
-          left: 500,
+          top:120,
+          left: {xs:100, md:500},
           fontSize: 14,
           textTransform: "capitalize",
           "&:hover": {

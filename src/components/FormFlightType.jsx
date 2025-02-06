@@ -83,7 +83,8 @@ const FormFlightType = () => {
           alignItems: "center",
           border: "none",
           borderColor: "#ccc",
-          fontSize: isSmallScreen ? "0.75rem" : "1rem",
+          textTransform:"capitalize",
+          fontSize: isSmallScreen ? 12 :  14,
           "&:hover": { backgroundColor: "#f5f5f5" },
           padding: isSmallScreen ? "4px 8px" : "8px 16px",
         }}

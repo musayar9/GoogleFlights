@@ -106,7 +106,7 @@ const FlightSearch = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: { sx: 0, md: 2 },
+          gap: {  md: 2 },
           my: 2,
         }}
       >

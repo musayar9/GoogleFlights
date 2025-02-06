@@ -6,9 +6,11 @@ import TapAndPlayIcon from "@mui/icons-material/TapAndPlay";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import PublicIcon from "@mui/icons-material/Public";
+import { useGlobalContext } from "../context/context";
 
 // This component renders the flight details in an accordion-style layout.
 const AccordionDetailContent = ({ item }) => {
+  const { selectedOptions } = useGlobalContext();
   return (
     <Box
       sx={{

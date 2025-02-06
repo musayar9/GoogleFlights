@@ -51,10 +51,10 @@ const FlightProvider = ({ children }) => {
       return;
     }
 
-
     try {
       setLoading(true);
       // Sending API request for flights
+      navigation("/result");
       const res = await api.get(`/v2/flights/searchFlights`, {
         params: {
           originSkyId: originSkyId,
@@ -75,13 +75,11 @@ const FlightProvider = ({ children }) => {
         },
       });
 
-      console.log("res.data", res.data);
       setFlights(res.data);
-      navigation("/result");
-      // Redirect to results page
-      setLoading(false);
     } catch (error) {
       console.log("error", error);
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };

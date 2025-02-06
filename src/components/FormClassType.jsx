@@ -6,6 +6,7 @@ import {
   useTheme,
   useMediaQuery,
   Typography,
+  Box
 } from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
 import { useGlobalContext } from "../context/context";
@@ -37,7 +38,7 @@ const FormClassType = () => {
   };
 
   return (
-    <div>
+    <Box>
       {/* Button to open the dropdown menu */}
       <Button
         onClick={handleClick}
@@ -70,13 +71,13 @@ const FormClassType = () => {
             sx={{ textTransform: "capitalize" }}
           >
             {/* Adjust font size based on screen size */}
-            <Typography sx={{ fontSize: isSmallScreen ? "0.75rem" : "1rem" }}>
+            <Typography sx={{ fontSize: isSmallScreen ? "0.60rem" : "1rem" }}>
               {option}
             </Typography>
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </Box>
   );
 };
 

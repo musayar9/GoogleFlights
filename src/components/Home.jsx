@@ -4,6 +4,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import Recommendations from "./Recommendations";
 import { useGlobalContext } from "../context/context";
 import Loading from "./Loading";
+import { useLocation } from "react-router-dom";
 
 // Array of cities with their respective IDs
 const city = [
