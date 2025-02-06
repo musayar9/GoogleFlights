@@ -1,22 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { formatDuration, formatHour } from "../utils/functions";
+import { formatDuration, formatHour } from "../utils/functions"; // Utility functions for formatting durations and hours
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+
+// This component is responsible for rendering the flight details summary in an accordion.
 const AccordionSummaryContent = ({ item }) => {
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
-
-        width: "100%",
-        justifyContent: "space-between",
+        width: "100%", // Ensure the content spans the full width
+        justifyContent: "space-between", // Distribute items evenly across the available space
         paddingLeft: { md: "10px" },
         paddingRight: { md: "10px" },
       }}
     >
+      {/* Conditionally render the carrier logo if it exists */}
       {item.legs?.[0]?.carriers?.marketing?.[0]?.logoUrl && (
         <img
           className="flight_img"
@@ -24,17 +26,20 @@ const AccordionSummaryContent = ({ item }) => {
           alt={item.legs[0].carriers.marketing[0].name}
         />
       )}
+
       <Box>
+        {/* Flight departure and arrival times */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography fontWeight={600} fontSize={18}>
-            {formatHour(item.legs?.[0].departure)}
+            {formatHour(item.legs?.[0].departure)} {/* Format departure time */}
           </Typography>
           <HorizontalRuleIcon sx={{ display: { xs: "none", md: "flex" } }} />
           <ArrowRightAltIcon sx={{ display: { xs: "flex", md: "none" } }} />
           <Typography fontWeight={600} fontSize={18}>
-            {formatHour(item.legs?.[0].arrival)}
+            {formatHour(item.legs?.[0].arrival)} {/* Format arrival time */}
           </Typography>
         </Box>
+        {/* Carrier's name displayed only on larger screens */}
         <Typography
           fontSize={14}
           sx={{ display: { xs: "none", md: "flex" } }}
@@ -43,6 +48,7 @@ const AccordionSummaryContent = ({ item }) => {
           {item.legs[0].carriers.marketing[0].name}
         </Typography>
 
+        {/* Flight origin and destination codes for mobile devices */}
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
@@ -57,6 +63,8 @@ const AccordionSummaryContent = ({ item }) => {
             {item.legs?.[0]?.destination.displayCode}
           </Typography>
         </Box>
+
+        {/* Stop count and duration information for mobile */}
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
@@ -71,7 +79,8 @@ const AccordionSummaryContent = ({ item }) => {
               color: "#212224",
             }}
           >
-            {item.legs?.[0].stopCount === 0 ? "Non-stop" : "Connecting"}
+            {item.legs?.[0].stopCount === 0 ? "Non-stop" : "Connecting"}{" "}
+            {/* Display flight stop type */}
           </Typography>
           <FiberManualRecordIcon sx={{ fontSize: 2 }} />
           <Typography
@@ -81,9 +90,12 @@ const AccordionSummaryContent = ({ item }) => {
               fontSize: 11,
             }}
           >
-            {formatDuration(item.legs?.[0].durationInMinutes)}
+            {formatDuration(item.legs?.[0].durationInMinutes)}{" "}
+            {/* Display flight duration */}
           </Typography>
         </Box>
+
+        {/* Carrier's name displayed only on smaller screens */}
         <Typography
           sx={{
             fontSize: 12,
@@ -94,6 +106,8 @@ const AccordionSummaryContent = ({ item }) => {
           {item.legs[0].carriers.marketing[0].name}
         </Typography>
       </Box>
+
+      {/* Duration and flight codes for larger screens */}
       <Box
         sx={{
           display: "flex",
@@ -109,7 +123,8 @@ const AccordionSummaryContent = ({ item }) => {
           marginTop={0}
           sx={{ display: { xs: "none", md: "flex" } }}
         >
-          {formatDuration(item.legs?.[0].durationInMinutes)}
+          {formatDuration(item.legs?.[0].durationInMinutes)}{" "}
+          {/* Display flight duration */}
         </Typography>
         <Box
           sx={{
@@ -127,6 +142,7 @@ const AccordionSummaryContent = ({ item }) => {
         </Box>
       </Box>
 
+      {/* Stop type information */}
       <Box>
         <Typography
           sx={{
@@ -139,6 +155,8 @@ const AccordionSummaryContent = ({ item }) => {
           {item.legs?.[0].stopCount === 0 ? "Non-stop" : "Connecting"}
         </Typography>
       </Box>
+
+      {/* Emissions information displayed on larger screens */}
       <Box
         sx={{
           display: { xs: "none", md: "flex" },
@@ -148,7 +166,7 @@ const AccordionSummaryContent = ({ item }) => {
         }}
       >
         <Typography fontSize={18} color={"#212224"}>
-          47 kg CO2e
+          47 kg CO2e {/* Display CO2 emissions */}
         </Typography>
         <Typography
           sx={{
@@ -159,21 +177,20 @@ const AccordionSummaryContent = ({ item }) => {
             fontSize: 14,
           }}
         >
-          -30% emissions
+          -30% emissions {/* Display emissions reduction */}
         </Typography>
       </Box>
+
+      {/* Price and trip type information */}
       <Box sx={{ textAlign: { xs: "right", md: "center" } }}>
         <Typography fontSize={18} color="#1a834a" fontWeight={600}>
-          {item.price.formatted}
+          {item.price.formatted} {/* Display price */}
         </Typography>
-        <Typography
-          fontSize={14}
-          fontWeight={500}
-          color={"#a1a3a4"}
-          className="flight-info__flightStatus"
-        >
-          {item.legs.length > 1 ? "Round-trip" : "One Way"}
+        <Typography fontSize={14} fontWeight={500} color={"#a1a3a4"}>
+          {item.legs.length > 1 ? "Round-trip" : "One Way"}{" "}
+          {/* Display trip type */}
         </Typography>
+        {/* Emissions reduction information displayed on smaller screens */}
         <Typography
           sx={{
             backgroundColor: "#e6f4ea",

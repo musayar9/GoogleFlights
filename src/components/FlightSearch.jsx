@@ -18,6 +18,7 @@ import { Alert, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 const FlightSearch = () => {
+  // Destructuring context values and functions for managing flight search state
   const {
     originSkyId,
     setOriginSkyId,
@@ -33,9 +34,12 @@ const FlightSearch = () => {
     errorMessage,
     handleSearchFlight,
   } = useGlobalContext();
+
+  // State for storing airport data and loading status
   const [airports, setAirports] = useState([]);
   const [isloading, setIsLoading] = useState(false);
 
+  // Function to fetch airport data when the Autocomplete field is focused
   const handleFocus = async () => {
     try {
       setIsLoading(true);
@@ -44,41 +48,40 @@ const FlightSearch = () => {
         {
           headers: {
             "X-RapidAPI-Key": import.meta.env.VITE_API_KEY,
-
             "X-RapidAPI-Host": "sky-scanner3.p.rapidapi.com",
           },
         }
       );
       const data = await response.data;
-      setAirports(data.data);
+      setAirports(data.data); // Set the fetched airport data
       setIsLoading(false);
     } catch (error) {
-      console.error("API Hatası:", error);
+      console.error("API Error:", error);
       setIsLoading(false);
     }
   };
 
+  // Function to handle origin airport selection
   const handleOrigin = async (newValue) => {
-    setOriginSkyId(newValue);
-    console.log("newValue", newValue);
+    setOriginSkyId(newValue); // Set the selected origin airport ID
     try {
       const res = await api.get("/v1/flights/searchAirport", {
         params: { query: newValue },
       });
-      setOriginAirPort(res.data.data[0]);
+      setOriginAirPort(res.data.data[0]); // Set the origin airport details
     } catch (error) {
       console.log(error, "error");
     }
   };
 
+  // Function to handle destination airport selection
   const handleDestination = async (newValue) => {
-    setDestinationSkyId(newValue);
-    console.log("newValue", newValue);
+    setDestinationSkyId(newValue); // Set the selected destination airport ID
     try {
       const res = await api.get("/v1/flights/searchAirport", {
         params: { query: newValue },
       });
-      setDestinationAirport(res.data.data[0]);
+      setDestinationAirport(res.data.data[0]); // Set the destination airport details
     } catch (error) {
       console.log(error, "error");
     }
@@ -98,25 +101,27 @@ const FlightSearch = () => {
         position: "relative",
       }}
     >
+      {/* Flight type, passenger, and class selection section */}
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           gap: { sx: 0, md: 2 },
           my: 2,
-  
         }}
       >
         <FormFlightType />
         <FormPerson />
         <FromClassType />
       </Box>
+
+      {/* Main search section with origin, destination, and date pickers */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: { xs: "column", md: "row" }, 
+          flexDirection: { xs: "column", md: "row" }, // Responsive layout
           gap: 2,
           width: "100%",
         }}
@@ -128,6 +133,7 @@ const FlightSearch = () => {
             gap: 2,
           }}
         >
+          {/* Autocomplete for origin airport */}
           <Autocomplete
             disablePortal
             options={airports.filter(
@@ -137,19 +143,20 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 300,  } }} // Küçük ekranda tam genişlik, büyükte 300px
+            sx={{ width: { xs: "100%", md: 300 } }} // Responsive width
             renderInput={(params) => (
               <TextField {...params} label={"From Where"} />
             )}
             noOptionsText={isloading ? "Loading..." : "No options"}
             onChange={(event, newValue) => {
               if (newValue) {
-                handleOrigin(newValue.skyId);
+                handleOrigin(newValue.skyId); // Handle origin selection
               }
             }}
-            onFocus={handleFocus}
+            onFocus={handleFocus} // Fetch airports on focus
           />
 
+          {/* Autocomplete for destination airport */}
           <Autocomplete
             disablePortal
             options={airports.filter(
@@ -165,18 +172,18 @@ const FlightSearch = () => {
             noOptionsText={isloading ? "Loading..." : "No options"}
             onChange={(event, newValue) => {
               if (newValue) {
-                handleDestination(newValue.skyId);
+                handleDestination(newValue.skyId); // Handle destination selection
               }
             }}
-            onFocus={handleFocus}
+            onFocus={handleFocus} // Fetch airports on focus
           />
         </Box>
 
+        {/* Date pickers for departure and return dates */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box
             sx={{
               display: "flex",
-
               gap: 2,
               width: "100%",
             }}
@@ -186,15 +193,15 @@ const FlightSearch = () => {
               disablePast
               label={"Departure"}
               value={departureDate}
-              onChange={(date) => setDepartureDate(date)}
+              onChange={(date) => setDepartureDate(date)} // Set departure date
               sx={{ width: { xs: "100%", md: oneWay ? "100%" : "75%" } }}
             />
-            {!oneWay && (
+            {!oneWay && ( // Show return date picker only if it's not a one-way trip
               <DatePicker
                 disablePast
                 label={"Return"}
                 value={returnDate}
-                onChange={(date) => setReturnDate(date)}
+                onChange={(date) => setReturnDate(date)} // Set return date
                 sx={{ width: { xs: "100%", md: oneWay ? "100%" : "75%" } }}
               />
             )}
@@ -202,26 +209,29 @@ const FlightSearch = () => {
         </LocalizationProvider>
       </Box>
 
+      {/* Search button */}
       <Button
         sx={{
           display: "flex",
           alignItems: "center",
           position: "absolute",
           bottom: -20,
-          left:{xs:"35%", md:"45%"},
+          left: { xs: "35%", md: "45%" },
           backgroundColor: "#1a73e8",
           paddingLeft: 2,
           paddingRight: 2,
           borderRadius: 20,
           color: "white",
         }}
-        onClick={handleSearchFlight}
+        onClick={handleSearchFlight} // Trigger flight search
       >
         <Search />
         <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
           {originSkyId && destinationSkyId ? "Search" : "Discover"}
         </Typography>
       </Button>
+
+      {/* Display error message if any */}
       {errorMessage && (
         <Alert sx={{ mt: 2 }} severity="error">
           {errorMessage}

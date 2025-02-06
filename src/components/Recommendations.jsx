@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { formatDuration, formatShortDate } from "../utils/functions";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+// recommended cities component
 const Recommendations = () => {
   return (
     <Box

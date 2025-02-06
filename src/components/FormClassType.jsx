@@ -11,16 +11,26 @@ import { ArrowDropDown } from "@mui/icons-material";
 import { useGlobalContext } from "../context/context";
 
 const FormClassType = () => {
+  // State to handle the dropdown menu
   const [anchorEl, setAnchorEl] = useState(null);
+
+  // Get selected option and setter from global context
   const { selectedOption, setSelectedOption } = useGlobalContext();
+
+  // Theme and media query for responsiveness
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  // Available class type options
   const options = ["economy", "premium_economy", "business", "first"];
+
+  // Handle button click to open menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Handle menu item selection and close menu
   const handleClose = (option) => {
     if (option) setSelectedOption(option);
     setAnchorEl(null);
@@ -28,6 +38,7 @@ const FormClassType = () => {
 
   return (
     <div>
+      {/* Button to open the dropdown menu */}
       <Button
         onClick={handleClick}
         variant="outlined"
@@ -38,13 +49,14 @@ const FormClassType = () => {
           border: "none",
           borderColor: "#ccc",
           color: "#808385",
-          fontSize:  12 ,
+          fontSize: 12,
           "&:hover": { backgroundColor: "#f5f5f5" },
         }}
       >
         {selectedOption}
       </Button>
 
+      {/* Dropdown menu for class selection */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -57,6 +69,7 @@ const FormClassType = () => {
             onClick={() => handleClose(option)}
             sx={{ textTransform: "capitalize" }}
           >
+            {/* Adjust font size based on screen size */}
             <Typography sx={{ fontSize: isSmallScreen ? "0.75rem" : "1rem" }}>
               {option}
             </Typography>

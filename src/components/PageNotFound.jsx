@@ -2,6 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import NotFound from "../assets/page_not_found.svg";
+
+// Component to be displayed if the page does not exist
 const PageNotFound = () => {
   const navigate = useNavigate();
   return (

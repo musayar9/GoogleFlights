@@ -13,17 +13,24 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import { useGlobalContext } from "../context/context";
 
 const FormFlightType = () => {
+  // State to manage dropdown menu
   const [anchorEl, setAnchorEl] = useState(null);
+
+  // Get flight type state from global context
   const { oneWay, setOneWay } = useGlobalContext();
+
+  // State for selected option with default value
   const [selectedOption, setSelectedOption] = useState({
     name: "Round-trip",
     icon: <SyncAltOutlined />,
   });
 
+  // Theme and media query for responsiveness
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Available flight type options
   const options = [
     {
       name: "Round-trip",
@@ -51,10 +58,12 @@ const FormFlightType = () => {
     },
   ];
 
+  // Handle button click to open menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Handle menu item selection and update state
   const handleClose = (option) => {
     if (option) setSelectedOption(option);
     setAnchorEl(null);
@@ -63,6 +72,7 @@ const FormFlightType = () => {
 
   return (
     <div>
+      {/* Button to open dropdown menu */}
       <Button
         onClick={handleClick}
         variant="outlined"
@@ -89,6 +99,7 @@ const FormFlightType = () => {
         </Typography>
       </Button>
 
+      {/* Dropdown menu for flight type selection */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

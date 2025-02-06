@@ -5,6 +5,7 @@ import Recommendations from "./Recommendations";
 import { useGlobalContext } from "../context/context";
 import Loading from "./Loading";
 
+// Array of cities with their respective IDs
 const city = [
   {
     id: 1,
@@ -16,10 +17,12 @@ const city = [
 ];
 
 const Home = () => {
-  const { loading } = useGlobalContext();
+  const { loading } = useGlobalContext(); // Retrieve loading state from global context
+
   if (loading) {
-    return <Loading />;
+    return <Loading />; // Show loading component if data is still being fetched
   }
+
   return (
     <Box
       sx={{
@@ -30,9 +33,12 @@ const Home = () => {
         gap: "10px",
       }}
     >
+      {/* Title Section */}
       <Typography variant="h5">
         Find the lowest-priced flights departing from Istanbul
       </Typography>
+
+      {/* City Selection Buttons */}
       <Box
         sx={{
           display: "flex",
@@ -56,11 +62,15 @@ const Home = () => {
             }}
             key={item.id}
           >
-            {item.cityName}
+            {item.cityName} {/* Display city name on button */}
           </Button>
         ))}
       </Box>
+
+      {/* Map Component */}
       <MapComponent />
+
+      {/* Recommendations Component */}
       <Recommendations />
     </Box>
   );

@@ -1,5 +1,7 @@
 import { InfinitySpin } from "react-loader-spinner";
 import { Box } from "@mui/material";
+
+// Loading Component
 const Loading = () => {
   return (
     <Box

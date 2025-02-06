@@ -7,36 +7,46 @@ import {
   Divider,
   Grid,
   Menu,
-  MenuItem,
   Typography,
-    useTheme,
+  useTheme,
   useMediaQuery,
 } from "@mui/material";
 import { ArrowDropDown, Person } from "@mui/icons-material";
 import { useGlobalContext } from "../context/context";
 
 const FormPerson = () => {
+  // State to manage the menu anchor element
   const [anchorEl, setAnchorEl] = useState(null);
+
+  // Get passenger data and setter from global context
   const { passengers, setPassengers } = useGlobalContext();
+
+  // Function to handle button click and open the menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  // Get theme and media query for responsive design
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  // Function to close the menu
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  // Function to update the passenger count based on type
   const handleChange = (type, value) => {
     setPassengers((prev) => ({
       ...prev,
-      [type]: Math.max(0, prev[type] + value),
+      [type]: Math.max(0, prev[type] + value), // Ensure value does not go below zero
     }));
   };
 
   return (
     <Box>
+      {/* Button to open the dropdown menu */}
       <Button
         startIcon={<Person />}
         onClick={handleClick}
@@ -53,6 +63,7 @@ const FormPerson = () => {
         {passengers.adults + passengers.children + passengers.infantsSeat}
       </Button>
 
+      {/* Dropdown menu for selecting passengers */}
       <Menu
         autoFocus
         anchorEl={anchorEl}
@@ -62,6 +73,7 @@ const FormPerson = () => {
       >
         <ClickAwayListener onClickAway={handleClose}>
           <Box>
+            {/* Adults selection */}
             <Grid
               container
               alignItems="center"
@@ -81,6 +93,7 @@ const FormPerson = () => {
               </ButtonGroup>
             </Grid>
 
+            {/* Children selection */}
             <Grid
               container
               alignItems="center"
@@ -100,6 +113,7 @@ const FormPerson = () => {
               </ButtonGroup>
             </Grid>
 
+            {/* Infant selection */}
             <Grid
               container
               alignItems="center"
@@ -121,15 +135,16 @@ const FormPerson = () => {
               </ButtonGroup>
             </Grid>
 
+            {/* Divider */}
             <Divider sx={{ my: 2 }} />
 
-            {/* Alt Butonlar */}
+            {/* Action buttons */}
             <Grid container justifyContent="space-between">
               <Button onClick={handleClose} color="error">
-                İptal
+                Cancel
               </Button>
               <Button onClick={handleClose} color="primary">
-                Bitti
+                OK
               </Button>
             </Grid>
           </Box>
