@@ -87,18 +87,26 @@ const FlightSearch = () => {
   return (
     <Box
       sx={{
-        marginTop: 10,
+        mt: 10,
         border: "1px solid #f0f0f0",
         borderRadius: 2,
         boxShadow: "2px 4px 6px rgba(0, 0, 0, 0.2)",
         gap: 4,
-        padding: 2,
+        p: 2,
         backgroundColor: "white",
         paddingBottom: 6,
         position: "relative",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, top: "-10px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: { sx: 0, md: 2 },
+          my: 2,
+  
+        }}
+      >
         <FormFlightType />
         <FormPerson />
         <FromClassType />
@@ -108,7 +116,7 @@ const FlightSearch = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: { xs: "column", md: "row" }, // Küçük ekranda column, büyükte row
+          flexDirection: { xs: "column", md: "row" }, 
           gap: 2,
           width: "100%",
         }}
@@ -116,7 +124,7 @@ const FlightSearch = () => {
         <Box
           sx={{
             display: "flex",
-          width:"100%",
+            width: "100%",
             gap: 2,
           }}
         >
@@ -129,7 +137,7 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 300 } }} // Küçük ekranda tam genişlik, büyükte 300px
+            sx={{ width: { xs: "100%", md: 300,  } }} // Küçük ekranda tam genişlik, büyükte 300px
             renderInput={(params) => (
               <TextField {...params} label={"From Where"} />
             )}
@@ -168,7 +176,7 @@ const FlightSearch = () => {
           <Box
             sx={{
               display: "flex",
-             
+
               gap: 2,
               width: "100%",
             }}
@@ -179,7 +187,7 @@ const FlightSearch = () => {
               label={"Departure"}
               value={departureDate}
               onChange={(date) => setDepartureDate(date)}
-              sx={{ width: { xs: "100%", md: oneWay ? "50%" : "75%" } }}
+              sx={{ width: { xs: "100%", md: oneWay ? "100%" : "75%" } }}
             />
             {!oneWay && (
               <DatePicker
@@ -187,7 +195,7 @@ const FlightSearch = () => {
                 label={"Return"}
                 value={returnDate}
                 onChange={(date) => setReturnDate(date)}
-                sx={{ width: { xs: "100%", md: oneWay ? "50%" : "75%" } }}
+                sx={{ width: { xs: "100%", md: oneWay ? "100%" : "75%" } }}
               />
             )}
           </Box>
@@ -200,7 +208,7 @@ const FlightSearch = () => {
           alignItems: "center",
           position: "absolute",
           bottom: -20,
-          left: "45%",
+          left:{xs:"35%", md:"45%"},
           backgroundColor: "#1a73e8",
           paddingLeft: 2,
           paddingRight: 2,

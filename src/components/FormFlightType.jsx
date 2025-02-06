@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, Button } from "@mui/material";
-import { ArrowDropDown, Face, SyncAltOutlined } from "@mui/icons-material";
+import {
+  Menu,
+  MenuItem,
+  Button,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import { ArrowDropDown, SyncAltOutlined } from "@mui/icons-material";
 import EastIcon from "@mui/icons-material/East";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import { useGlobalContext } from "../context/context";
+
 const FormFlightType = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { oneWay, setOneWay } = useGlobalContext();
@@ -12,12 +20,34 @@ const FormFlightType = () => {
     icon: <SyncAltOutlined />,
   });
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const options = [
-    { name: "Round-trip", icon: <SyncAltOutlined sx={{ fontSize: 16 }} /> },
-    { name: "One Way", icon: <EastIcon sx={{ fontSize: 16 }} /> },
+    {
+      name: "Round-trip",
+      icon: (
+        <SyncAltOutlined
+          sx={{ fontSize: isSmallScreen ? 12 : isMediumScreen ? 16 : 20 }}
+        />
+      ),
+    },
+    {
+      name: "One Way",
+      icon: (
+        <EastIcon
+          sx={{ fontSize: isSmallScreen ? 12 : isMediumScreen ? 16 : 20 }}
+        />
+      ),
+    },
     {
       name: "Multi City",
-      icon: <LocationCityIcon sx={{ fontSize: 16 }} />,
+      icon: (
+        <LocationCityIcon
+          sx={{ fontSize: isSmallScreen ? 12 : isMediumScreen ? 16 : 20 }}
+        />
+      ),
     },
   ];
 
@@ -27,37 +57,36 @@ const FormFlightType = () => {
 
   const handleClose = (option) => {
     if (option) setSelectedOption(option);
-    console.log("ıo", option);
     setAnchorEl(null);
-    if (option.name === "One Way") {
-      setOneWay(true);
-    } else {
-      setOneWay(false);
-    }
+    setOneWay(option?.name === "One Way");
   };
-  console.log("ponew", oneWay);
+
   return (
     <div>
       <Button
         onClick={handleClick}
         variant="outlined"
         endIcon={<ArrowDropDown />}
-        color="#808385"
-        
         sx={{
           backgroundColor: "white",
           display: "flex",
           alignItems: "center",
-          fontSize: 12,
           border: "none",
           borderColor: "#ccc",
+          fontSize: isSmallScreen ? "0.75rem" : "1rem",
           "&:hover": { backgroundColor: "#f5f5f5" },
+          padding: isSmallScreen ? "4px 8px" : "8px 16px",
         }}
       >
-        <p style={{ paddingRight: "5px", paddingTop: "5px" }}>
+        <Typography
+          variant="subtitle2"
+          sx={{ paddingLeft: 1, paddingRight: 1 }}
+        >
           {selectedOption.icon}
-        </p>
-        <p>{selectedOption.name}</p>
+        </Typography>
+        <Typography fontSize={isSmallScreen ? "0.60rem" : "1rem"}>
+          {selectedOption.name}
+        </Typography>
       </Button>
 
       <Menu
@@ -73,12 +102,13 @@ const FormFlightType = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: 2,
+              gap: 1,
             }}
           >
-            <p> {option.icon}</p>
-
-            <p> {option.name}</p>
+            <Typography>{option.icon}</Typography>
+            <Typography sx={{ fontSize: isSmallScreen ? "0.75rem" : "1rem" }}>
+              {option.name}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>

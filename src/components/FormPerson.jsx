@@ -9,6 +9,8 @@ import {
   Menu,
   MenuItem,
   Typography,
+    useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { ArrowDropDown, Person } from "@mui/icons-material";
 import { useGlobalContext } from "../context/context";
@@ -19,7 +21,9 @@ const FormPerson = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClose = () => {
     setAnchorEl(null);
   };

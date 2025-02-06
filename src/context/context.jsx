@@ -23,6 +23,7 @@ const FlightProvider = ({ children }) => {
     infantsSeat: 0,
   });
 
+  console.log("oneWay", oneWay, "returnDate", returnDate);
   const navigation = useNavigate();
   const handleSearchFlight = async () => {
     if (!originSkyId) {
@@ -47,7 +48,8 @@ const FlightProvider = ({ children }) => {
           destinationEntityId: destinationAirport.entityId,
           cabinClass: selectedOption,
           date: formattedDate(departureDate),
-          returnDate: formattedDate(returnDate),
+          ...(oneWay ? {} : { returnDate: formattedDate(returnDate) }),
+
           adults: passengers.adults,
           childrens: passengers.children,
           infants: passengers.infantsSeat,

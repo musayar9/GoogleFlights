@@ -1,15 +1,22 @@
 import { InfinitySpin } from "react-loader-spinner";
-// Loading componenti, sayfa yüklenirken gösterilecek bir spinner animasyonu render eder
+import { Box } from "@mui/material";
 const Loading = () => {
   return (
-    <div className="loading">
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        mt: 8,
+      }}
+    >
       <InfinitySpin
         visible={true}
         width="200"
         color="#1a73e8"
         ariaLabel="infinity-spin-loading"
       />
-    </div>
+    </Box>
   );
 };
 
