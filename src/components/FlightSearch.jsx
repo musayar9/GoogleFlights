@@ -143,7 +143,7 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 300 } }} // Responsive width
+            sx={{ width: { xs: "100%", md: 200, lg:300 } }} // Responsive width
             renderInput={(params) => (
               <TextField {...params} label={"From Where"} />
             )}
@@ -165,7 +165,7 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 300 } }}
+            sx={{ width: { xs: "100%", md: 200, lg:300 } }}
             renderInput={(params) => (
               <TextField {...params} label={"To Where"} />
             )}
