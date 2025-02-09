@@ -21,7 +21,7 @@ const Result = () => {
   if (flights?.data?.itineraries?.length === 0 || flights.status === "false") {
     return <NotFlights />;
   }
-console.log("fş0", flights)
+  console.log("fşhts", flights);
   return (
     <div className="accordion-container">
       {/* Map through the list of flight itineraries and render an accordion for each */}

@@ -106,7 +106,7 @@ const FlightSearch = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: {  md: 2 },
+          gap: { md: 2 },
           my: 2,
         }}
       >
@@ -143,7 +143,7 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 200, lg:300 } }} // Responsive width
+            sx={{ width: { xs: "100%", md: 200, lg: 300 } }} // Responsive width
             renderInput={(params) => (
               <TextField {...params} label={"From Where"} />
             )}
@@ -165,7 +165,7 @@ const FlightSearch = () => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionKey={(option, index) => `${option.id}-${index}`}
-            sx={{ width: { xs: "100%", md: 200, lg:300 } }}
+            sx={{ width: { xs: "100%", md: 200, lg: 300 } }}
             renderInput={(params) => (
               <TextField {...params} label={"To Where"} />
             )}
@@ -214,16 +214,17 @@ const FlightSearch = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          position: "absolute",
-          bottom: -20,
-          left: { xs: "35%", md: "45%" },
+          position: "absolute", 
+          bottom: -20, 
+          left: "50%",
+          transform: "translateX(-50%)", 
           backgroundColor: "#1a73e8",
           paddingLeft: 2,
           paddingRight: 2,
           borderRadius: 20,
           color: "white",
         }}
-        onClick={handleSearchFlight} // Trigger flight search
+        onClick={handleSearchFlight}
       >
         <Search />
         <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
